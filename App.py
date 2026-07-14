@@ -26,11 +26,10 @@ if uploaded_file is not None:
                     client = genai.Client(api_key=api_key)
                     prompt = f"Is image ke text ko achhe se samjho aur isse {num_questions} Multiple Choice Questions (MCQs) banao. Har question ke 4 options (A, B, C, D) hone chahiye aur end me Correct Answer aur chota sa explanation hona chahiye. Language Hinglish (Hindi + English mix) rakhein."
                     
+                    # Yahan humne bilkul sahi syntax aur latest model use kiya hai
                     response = client.models.generate_content(
-                        model='gemini-1.5-flash-002',
+                        model='gemini-2.5-flash',
                         contents=[image, prompt]
-)
-            
                     )
                     st.success("🎉 Aapke MCQs Taiyaar Hain!")
                     st.markdown(response.text)
