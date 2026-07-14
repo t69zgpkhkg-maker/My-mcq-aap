@@ -23,9 +23,9 @@ if uploaded_file is not None:
         else:
             with st.spinner("AI photo ko padh raha hai aur MCQs bana raha hai..."):
                 try:
-                    # Stable library setup aur working model version
+                    # Is baar confirm 1.5-flash model set kar rahe hain jo sabke liye free chalta hai
                     genai.configure(api_key=api_key)
-                    model = genai.GenerativeModel('gemini-2.0-flash')
+                    model = genai.GenerativeModel('gemini-1.5-flash')
                     
                     prompt = f"Is image ke text ko achhe se samjho aur isse {num_questions} Multiple Choice Questions (MCQs) banao. Har question ke 4 options (A, B, C, D) hone chahiye aur end me Correct Answer aur chota sa explanation hona chahiye. Language Hinglish (Hindi + English mix) rakhein."
                     
