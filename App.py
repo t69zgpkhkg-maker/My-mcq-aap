@@ -30,7 +30,7 @@ if uploaded_file is not None:
                     
                     # Naya official 2026 stable model aur format
                     response = client.models.generate_content(
-                        model='gemini-2.5-flash',
+                        model='gemini-1.5-flash',
                         contents=[image, prompt]
                     )
                     
