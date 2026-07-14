@@ -25,7 +25,7 @@ if uploaded_file is not None:
                 try:
                     genai.configure(api_key=api_key)
                     # Working 2.5 flash model jiska free quota available hai
-                    model = genai.GenerativeModel(model_name='gemini-2.5-flash')
+                    model = genai.GenerativeModel(model_name='gemini-2.0-flash-exp')
                     
                     prompt = f"Is image ke text ko achhe se samjho aur isse {num_questions} Multiple Choice Questions (MCQs) banao. Har question ke 4 options (A, B, C, D) hone chahiye aur end me Correct Answer aur chota sa explanation hona chahiye. Language Hinglish (Hindi + English mix) rakhein."
                     
