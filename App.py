@@ -4,11 +4,27 @@ from PIL import Image
 
 st.set_page_config(page_title="AI MCQ Generator", page_icon="📸")
 st.title("📸 AI MCQ Generator From Photo")
-st.write("Kisi bhi book ya notes ki photo upload karein aur MCQs taiyaar karein!")
 
-# Sidebar me API key input
-api_key = st.sidebar.text_input("Apni Gemini API Key yahan dalein:", type="password")
+api_key = st.sidebar.text_input("Apni Gemini API Key dalein:", type="password")
+uploaded_file = st.file_uploader("Photo select karein...", type=["jpg", "jpeg", "png"])
 
-uploaded_file = st.file_uploader("Photo select karein (PNG, JPG, JPEG)...", type=["jpg", "jpeg", "png"])
-
-if uploaded_file is
+if uploaded_file is not None and api_key:
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Uploaded Photo", use_container_width=True)
+    num_questions = st.slider("Kitne Questions chahiye?", min_value=3, max_value=10, value=5)
+    
+    if st.button("✨ MCQs Taiyaar Karein"):
+        with st.spinner("AI Kaam kar raha hai..."):
+            try:
+                client = genai.Client(api_key=api_key)
+                prompt = f"Is image se {num_questions} MCQs banao options A, B, C, D ke sath aur correct answer bhi do. Language Hinglish rakho."
+                
+                # Bina kisi version lafde ke auto-pick karne wala standard model string
+                response = client.models.generate_content(
+                    model='gemini-2.5',
+                    contents=[image, prompt]
+                )
+                st.success("🎉 Taiyaar Hain!")
+                st.markdown(response.text)
+            except Exception as e:
+                st.error(f"Koyi galti hui: {e}")
