@@ -1,5 +1,5 @@
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 from PIL import Image
 
 st.set_page_config(page_title="AI MCQ Generator", page_icon="📸")
@@ -23,14 +23,13 @@ if uploaded_file is not None:
         else:
             with st.spinner("AI photo ko padh raha hai aur MCQs bana raha hai..."):
                 try:
-                    client = genai.Client(api_key=api_key)
+                    # Stable library setup aur working model version
+                    genai.configure(api_key=api_key)
+                    model = genai.GenerativeModel('gemini-2.0-flash')
+                    
                     prompt = f"Is image ke text ko achhe se samjho aur isse {num_questions} Multiple Choice Questions (MCQs) banao. Har question ke 4 options (A, B, C, D) hone chahiye aur end me Correct Answer aur chota sa explanation hona chahiye. Language Hinglish (Hindi + English mix) rakhein."
                     
-                    # Yahan humne bilkul sahi syntax aur latest model use kiya hai
-                    response = client.models.generate_content(
-                        model='gemini-2.5-flash',
-                        contents=[image, prompt]
-                    )
+                    response = model.generate_content([image, prompt])
                     st.success("🎉 Aapke MCQs Taiyaar Hain!")
                     st.markdown(response.text)
                 except Exception as e:
