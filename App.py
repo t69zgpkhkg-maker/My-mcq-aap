@@ -21,7 +21,8 @@ if uploaded_file is not None and api_key:
                 
                 # Bina kisi version lafde ke auto-pick karne wala standard model string
                 response = client.models.generate_content(
-                    model='gemini-2.5',
+                    model= genai.GenerativeModel("gemini-2.0-flash")
+
                     contents=[image, prompt]
                 )
                 st.success("🎉 Taiyaar Hain!")
